@@ -2,64 +2,63 @@
 
 using namespace std;
 
-class Complement
-{
+class Complement {
 public:
     int a[10], b[10], bit, result, complement1(int a[100], int bit), complement2(int a[100], int bit), plusMin(int b[100], int bit, int com);
     void input1(), input2();
 } c;
 
-void Complement::input1()
-{
+void Complement::input1() {
     cout << "Please input bit of biner : ";
     cin >> c.bit;
+    string bin;
     cout << "Please enter the biner : " << endl;
-    for (int i = 0; i < c.bit; i++)
-    {
-        cin >> c.a[i];
+    cin >> bin;
+    string temp;
+    for (int i = 0; i < c.bit; i++) {
+        temp = bin[i];
+        c.a[i] = stoi(temp);
     }
     system("clear");
 }
 
-void Complement::input2()
-{
+void Complement::input2() {
+    cout << "Please input bit of biner : ";
+    cin >> c.bit;
+    string bin1, temp1, bin2, temp2;
     cout << "Please enter the biner a: " << endl;
-    for (int i = 0; i < c.bit; i++)
-    {
-        cin >> c.a[i];
+    cin >> bin1;
+    for (int i = 0; i < c.bit; i++) {
+        temp1 = bin1[i];
+        c.a[i] = stoi(temp1);
     }
     system("clear");
     cout << "Please enter the biner b: " << endl;
-    for (int i = 0; i < c.bit; i++)
-    {
-        cin >> c.b[i];
+    cin >> bin2;
+    for (int i = 0; i < c.bit; i++) {
+        temp2 = bin2[i];
+        c.b[i] = stoi(temp2);
     }
     system("clear");
 }
 
-int Complement::complement1(int a[100], int bit)
-{
+int Complement::complement1(int a[100], int bit) {
     c.result = 0;
     int value;
-    if (c.bit == 4)
-    {
+    if (c.bit == 4) {
         value = 8;
     }
-    else if (c.bit == 5)
-    {
+    else if (c.bit == 5) {
         value = 16;
     }
 
-    for (int i = 0; i < c.bit; i++)
-    {
-        if (i == 0 && a[0] == 1)
-        {
+    for (int i = 0; i < c.bit; i++) {
+        if (i == 0 && a[0] == 1) {
             value -= 1;
             c.result -= value;
             value++;
         }
-        else if (i != 0 && a[i] == 1)
-        {
+        else if (i != 0 && a[i] == 1) {
             c.result += value;
         }
         value /= 2;
@@ -67,21 +66,17 @@ int Complement::complement1(int a[100], int bit)
     return c.result;
 }
 
-int Complement::complement2(int a[100], int bit)
-{
+int Complement::complement2(int a[100], int bit) {
     c.result = 0;
     int value;
-    if (c.bit == 4)
-    {
+    if (c.bit == 4) {
         value = 8;
     }
-    else if (c.bit == 5)
-    {
+    else if (c.bit == 5) {
         value = 16;
     }
 
-    for (int i = 0; i < c.bit; i++)
-    {
+    for (int i = 0; i < c.bit; i++) {
         if (i == 0 && a[0] == 1)
         {
             c.result -= value;
@@ -92,56 +87,13 @@ int Complement::complement2(int a[100], int bit)
         }
         value /= 2;
     }
+    if (c.result == -8) {
+        c.result = 0;
+    }
     return c.result;
 }
 
-int Complement::plusMin(int b[100], int bit, int com)
-{
-    int value;
-    if (c.bit == 4)
-    {
-        value = 8;
-    }
-    else if (c.bit == 5)
-    {
-        value = 16;
-    }
-    if (c.b[0] == 0)
-    {
-        value *= -1;
-        c.b[0] = 1;
-    }
-    else if (c.b[0] == 1)
-    {
-        c.b[0] = 0;
-    }
-
-    if (com < 0)
-    {
-        int i = 1;
-        while (1)
-        {
-            if ((value - c.b[i] < 0))
-            {
-                c.b[i] = 0;
-            }
-            else
-            {
-                value -= c.b[i];
-            }
-            if (value == 0)
-            {
-                break;
-            }
-            i++;
-        }
-    }
-
-    return 1;
-}
-
-int main()
-{
+int main() {
 awal:
     int choose, temp = 0;
     cout << "Choose menu : " << endl;
@@ -153,20 +105,17 @@ awal:
     cin >> choose;
     system("clear");
 
-    switch (choose)
-    {
+    switch (choose) {
     case 1:
         c.input1();
         cout << "1's Complement ";
         c.complement1(c.a, c.bit);
-        for (int i = 0; i < c.bit; i++)
-        {
+        for (int i = 0; i < c.bit; i++) {
             cout << c.a[i];
         }
         cout << " : " << c.result << " -> 2's Complement ";
         c.complement2(c.a, c.bit);
-        for (int i = 0; i < c.bit; i++)
-        {
+        for (int i = 0; i < c.bit; i++) {
             cout << c.a[i];
         }
         cout << " : " << c.result << endl;
@@ -179,42 +128,39 @@ awal:
         c.complement2(c.b, c.bit);
         temp += c.result;
 
-        for (int i = 0; i < c.bit; i++)
-        {
+        for (int i = 0; i < c.bit; i++) {
             cout << c.a[i];
         }
 
-        cout << " " << c.result << " + ";
+        cout << " " << c.complement2(c.a, c.bit) << " + ";
 
-        for (int i = 0; i < c.bit; i++)
-        {
+        for (int i = 0; i < c.bit; i++) {
             cout << c.b[i];
         }
 
-        cout << " " << c.result << " = " << temp << endl
-            << endl;
+        cout << " " << c.complement2(c.b, c.bit) << " = " << temp << endl
+             << endl;
         break;
 
     case 3:
         c.input2();
-        c.complement2(c.a, c.bit);
+        cout << c.complement2(c.a, c.bit) << endl;
         temp = c.result;
-        c.complement2(c.b, c.bit);
+        cout << c.complement2(c.b, c.bit) << endl;
         temp -= c.result;
-        c.plusMin(c.b, c.bit, c.result);
-        for (int i = 0; i < c.bit; i++)
-        {
+        cout << c.result << endl;
+        for (int i = 0; i < c.bit; i++) {
             cout << c.a[i];
         }
 
-        cout << " " << c.result << " + ";
+        cout << " " << c.complement2(c.a, c.bit) << " - ";
 
-        for (int i = 0; i < c.bit; i++)
-        {
+        for (int i = 0; i < c.bit; i++) {
             cout << c.b[i];
         }
 
-        cout << " " << c.result << " = " << temp << endl << endl;
+        cout << " " << c.complement2(c.b, c.bit) << " = " << temp << endl
+             << endl;
         break;
 
     case 4:
